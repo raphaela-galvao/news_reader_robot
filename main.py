@@ -1,10 +1,8 @@
 import time
-
 import yaml
-from utils.logging_config import setup_logger
-from utils.scraper import NewsScraper
-import easygui
 import datetime
+from utils.scraper import NewsScraper
+from utils.logging_config import setup_logger
 
 
 def load_config(config_path):
@@ -42,6 +40,5 @@ if __name__ == "__main__":
 
         # close browser
         scraper.close_browser()
-
     finally:
         scraper.logger.info("end of script")

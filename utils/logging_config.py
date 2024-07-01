@@ -20,13 +20,3 @@ def setup_logger(name):
     return logger
 
 
-'''# Configura e obtém o logger
-logger = setup_logger('my_loggerr3')
-
-# Usa o logger para registrar mensagens
-logger.debug('This is a debug message')
-logger.info('This is an info message')
-logger.warning('This is a warning message')
-logger.error('This is an error message')
-logger.critical('This is a critical message')
-'''

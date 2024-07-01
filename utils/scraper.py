@@ -1,14 +1,10 @@
-import os
+import re
 import shutil
-import time
 import datetime
-# from datetime import timedelta
-import pandas as pd
-import easygui
 import requests
+import pandas as pd
 from RPA.Browser.Selenium import Selenium
 from selenium.webdriver.common.by import By
-import re
 
 
 class NewsScraper:
@@ -46,7 +42,6 @@ class NewsScraper:
             # navigate to the <span> element within the current item
             span_element = self.browser.find_element("css:span", parent=item)
             category_text = self.browser.get_text(span_element).strip()
-
 
             if category_text == category:
                 self.logger.info(f"Selecting category: {category}")
@@ -150,39 +145,6 @@ class NewsScraper:
         df.to_excel(filename, index=False)
         self.logger.info(f"Data saved to {filename}")
 
-        '''   
-        def extract_article_info(self, start_date):
-        articles = []
-
-        article_elements = self.browser.find_elements("css:.PageList-items-item")
-        for article in article_elements:
-
-            title_element = self.browser.find_element("css:.PagePromo-title a.Link", parent=article)
-            #description_element = self.browser.find_element("css:.PagePromo-description a.Link", parent=article)
-            time.sleep(5)
-            easygui.msgbox('teste html')
-            #timestamp_element = self.browser.find_element("css:.PagePromo-date bsp-timestamp", parent=article)
-            timestamp_element = self.browser.find_element("css:.PagePromo-date", parent=article)
-
-
-            url = self.browser.get_element_attribute(title_element, "href")
-            title = self.browser.get_text(title_element)
-            #description = self.browser.get_text(description_element).strip()
-
-            timestamp = int(self.browser.get_element_attribute(timestamp_element, "data-timestamp")) / 1000
-            date = datetime.utcfromtimestamp(timestamp)
-
-            if date >= start_date:
-                article_info = {
-                    'title': title,
-                    'url': url,
-                    #'description': description,
-                    'timestamp': date
-                }
-                articles.append(article_info)
-
-        return articles'''
-
     def contains_money(self, text):
         # Define a pattern to match monetary amounts in various formats
         pattern = r'\$\d+(\.\d{1,2})?|\d+ dollars|\d+ USD'
@@ -192,10 +154,6 @@ class NewsScraper:
 
         # Explicitly return "True" or "False" as strings
         return "True" if match_found else "False"
-
-    '''def clean_filename(self, filename):
-        # replace invalid characters with an underscore
-        return re.sub(r'[^\w\s-]', '_', filename)'''
 
     def download_images(self, image_url, counter):
         response = requests.get(str(image_url), stream=True)
@@ -208,4 +166,3 @@ class NewsScraper:
 
     def close_browser(self):
         self.browser.close_browser()
-
